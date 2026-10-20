@@ -79,9 +79,29 @@ cw1_3.addEventListener("click", function () {
 
 
 
-  cw2.addEventListener("click", function () {
-    //TODO
+cw2.addEventListener("click", function () {
+  answer.textContent = "Processing...";
+
+  fetch('https://jsonplaceholder.typicode.com/posts', {
+    method: 'POST',
+    body: JSON.stringify({
+      title: 'Przykładowy tytuł',
+      body: 'Treść nowego posta',
+      userId: 1
+    }),
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    },
   })
+    .then(response => response.json())
+    .then(data => {
+      answer.textContent = `Dodano nowy post o ID = ${data.id}`;
+    })
+    .catch(error => {
+      answer.textContent = "Wystąpił błąd podczas dodawania posta.";
+      console.error(error);
+    });
+})
 
   cw3.addEventListener("click", function () {
     //TODO
