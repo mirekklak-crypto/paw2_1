@@ -4,6 +4,7 @@
   const cw2 = document.getElementById('cw2')
   const cw3 = document.getElementById('cw3')
   const answer = document.getElementById('answer')
+  const postIdSelect = document.getElementById('post-id-select'); 
 
   example.addEventListener("click", function () {
     fetch('https://jsonplaceholder.typicode.com/posts')
@@ -52,7 +53,30 @@ cw1_2.addEventListener("click", function () {
         });
     },1000);
 
+    })
+
+cw1_3.addEventListener("click", function () {
+  const selectedId = postIdSelect.value;
+  
+  fetch(`https://jsonplaceholder.typicode.com/posts?id=${selectedId}`)
+    .then(response => response.json())
+    .then(posts => {
+      const post = posts[0];
+      
+      if (post) {
+        answer.innerHTML = `
+          <ul>
+            <li>
+              <strong>[ID: ${post.id}] ${post.title}</strong>
+              <p>${post.body}</p>
+            </li>
+          </ul>
+        `;
+      }
     });
+})
+  
+
 
 
   cw2.addEventListener("click", function () {
